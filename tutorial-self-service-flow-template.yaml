@@ -1,0 +1,96 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: react-app
+  title: Create a new service
+  description: A template to create a new service
+  tags:
+    - nextjs
+    - react
+    - javascript
+spec:
+  owner: debabrata.panigrahi@harness.io
+  type: service
+  parameters:
+    - title: Service Details
+      required:
+        - project_name
+        - template_type
+        - public_template_url
+        - repository_type
+        - repositoty_description
+        - repository_default_branch
+        - direct_push_branch
+        - slack_id
+      properties:
+        project_name:
+          title: Name of your service
+          type: string
+          description: Unique name service     
+        template_type:
+          title: Type of the Template
+          type: string
+          description: Type of the Template
+        public_template_url:
+          title: Give a Public template URL
+          type: string
+          description: Give a Public Cookiecutter Template  
+        repository_type:
+          type: string
+          title: Repository Type
+          enum:
+            - public
+            - private
+          default: Public
+        repositoty_description:
+          type: string
+          title: Add a description to your repo
+          description: Auto-generated using Self-Service-Flow of Harness-IDP 
+        repository_default_branch:
+          title: Name of your Default Branch
+          type: string
+          description: name your branch 
+        direct_push_branch:
+          title: Name of your develop branch
+          type: string
+          description: Name the Branch to which changes will be updated
+        slack_id:
+          title: Name of your slack ID
+          type: string
+          description: Give the slack ID to which notifications would be sent      
+        owner:
+          title: Choose an Owner for the Service
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        # This field is hidden but needed to authenticate the request to trigger the pipeline
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Creating your react app
+      action: trigger:harness-custom-pipeline
+      input:
+        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/ci/orgs/default/projects/projctidp/pipelines/SelfServiceflowreposetup/pipeline-studio/?storeType=INLINE"
+        inputset:
+          project_name: ${{ parameters.project_name }}
+          template_type: ${{ parameters.template_type }}
+          public_template_url: ${{ parameters.public_template_url }}
+          repository_type: ${{ parameters.repository_type }}
+          repositoty_description: ${{ parameters.repository_description }}
+          repository_default_branch: ${{ parameters.repository_default_branch }}
+          direct_push_branch: ${{ parameters.direct_push_branch }}
+          slack_id: ${{ parameters.slack_id }}
+        apikey: ${{ parameters.token }}
+    # The final step is to register our new component in the catalog.
+
+
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
