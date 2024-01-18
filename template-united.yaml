@@ -24,6 +24,7 @@ spec:
             - Java
             - Kotlin
             - Groovy
+          default: Java  
         version:
           title: Your version number
           type: string
@@ -32,6 +33,7 @@ spec:
             - "11"
             - "17"
             - "21"
+          default: "21"  
         buildSystem:
           title: Name of the build system
           type: string
@@ -39,20 +41,14 @@ spec:
             - Gradle-Groovy
             - Gradle-Kotlin
             - Maven
+          default: "Maven"  
         buildVersion:
           title: List all of the buld version
           type: string
           enum:
             - maven3.1
             - maven3.2
-        owner:
-          title: Choose an Owner for the Service
-          type: string
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
-        # This field is hidden but needed to authenticate the request to trigger the pipeline
+          default: "maven3.1"
         token:
           title: Harness Token
           type: string
