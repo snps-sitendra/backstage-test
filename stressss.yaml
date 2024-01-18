@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: canary-backend-service10
+  name: canary-backend-ser
   description: pipeline build and deploy
   annotations:
        harness.io/project-url: https://stress.harness.io/ng/account/px7xd_BFRCi-pfWPYXVjvw/home/orgs/default/projects/Pankaj/
