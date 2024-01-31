@@ -23,10 +23,11 @@ spec:
         - direct_push_branch
         - slack_id
       properties:
-        project_name:
-          title: Name of your service
-          type: string
-          description: Unique name service     
+        projectId:
+            title: Project Identifier
+            description: Harness Project Identifier
+            type: string
+            ui:field: HarnessProjectPicker  
         template_type:
           title: Type of the Template
           type: string
