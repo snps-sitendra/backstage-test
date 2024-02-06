@@ -34,3 +34,7 @@ spec:
   type: service
   lifecycle: production
   owner: asdf
+  dependsOn:
+    - resource:default/artists-db
+  providesApis:
+    - artist-api
