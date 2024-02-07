@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: canary-backend-service4
+  name: github-plugin
   description: pipeline build and deploy
   annotations:
        harness.io/project-url: https://app.harness.io/ng/#/account/vpCkHKsDSxK9_KYfjCTMKA/cd/orgs/default/projects/PREQA_NG_Pipelines/
-       github.com/project-slug: Debanitrkl/backstage-test
+       github.com/project-slug: Debanitrkl/chaos-mesh
   tags:
     - java
   
