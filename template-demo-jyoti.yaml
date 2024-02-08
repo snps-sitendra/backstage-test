@@ -32,7 +32,7 @@ spec:
             title: Org Identifier
             description: Harness org Identifier
             type: string
-            ui:field: HarnessOrgPickerAuto            
+            ui:field: HarnessAutoOrgPicker            
         template_type:
           title: Type of the Template
           type: string
