@@ -28,11 +28,13 @@ spec:
             description: Harness Project Identifier
             type: string
             ui:field: HarnessProjectPicker
+            ui:autofocus: true
         orgId:
             title: Org Identifier
             description: Harness org Identifier
             type: string
-            ui:field: HarnessAutoOrgPicker            
+            ui:field: HarnessAutoOrgPicker
+            ui:autofocus: true
         template_type:
           title: Type of the Template
           type: string
