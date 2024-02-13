@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: react-app
-  title: Create a new service
+  title: Create a new service for debug log
   description: A template to create a new service
   tags:
     - nextjs
