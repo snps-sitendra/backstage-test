@@ -94,7 +94,8 @@ spec:
           direct_push_branch: ${{ parameters.direct_push_branch }}
           slack_id: ${{ parameters.slack_id }}
         apikey: ${{ parameters.token }}
-  - action: debug:log
+  - id: debug-log
+    action: debug:log
     id: write-debug-line
     name: Write "Hello Backstage!" log line
     input:
