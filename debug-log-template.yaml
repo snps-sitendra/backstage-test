@@ -94,6 +94,7 @@ spec:
           direct_push_branch: ${{ parameters.direct_push_branch }}
           slack_id: ${{ parameters.slack_id }}
         apikey: ${{ parameters.token }}
+  
   - id: debug-log
     action: debug:log
     id: write-debug-line
