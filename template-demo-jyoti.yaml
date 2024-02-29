@@ -23,6 +23,10 @@ spec:
         - direct_push_branch
         - slack_id
       properties:
+        project_name:
+          title: Project Name
+          type: string
+          description: Mention the project name
         token:
           title: Harness Token
           type: string
