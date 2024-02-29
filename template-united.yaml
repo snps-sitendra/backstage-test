@@ -7,7 +7,7 @@ metadata:
   tags:
     - java
 spec:
-  owner: debabrata.panigrahi@harness.io
+  owner: debabrata.panigrahi
   type: service
   parameters:
     - title: Java app details
