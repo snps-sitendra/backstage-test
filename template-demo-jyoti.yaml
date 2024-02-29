@@ -9,7 +9,7 @@ metadata:
     - react
     - javascript
 spec:
-  owner: debabrata.panigrahi@harness.io
+  owner: debabrata.panigrahi
   type: service
   parameters:
     - title: Service Details
