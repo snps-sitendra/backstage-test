@@ -93,14 +93,3 @@ spec:
       - title: Open in catalog
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
-status:
-  items:
-    - type: backstage.io/catalog-processing
-      level: error
-      message: "InputError: No processor recognized the entity
-        template:default/react-host-template as valid, possibly caused by a
-        foreign kind or apiVersion"
-      error:
-        name: InputError
-        message: No processor recognized the entity template:default/react-host-template
-          as valid, possibly caused by a foreign kind or apiVersion
