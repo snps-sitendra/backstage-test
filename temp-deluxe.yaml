@@ -1,107 +1,106 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: react-app
-  title: Create a new service
+  name: re-deluxe
+  title: Create a new 
   description: A template to create a new service
   tags:
     - nextjs
     - react
     - javascript
 spec:
-  owner: user:default/debabrata.panigrahi
-  type: service
+  owner: user:drod-deluxe
+  type: website
   parameters:
-    - title: Service Details
+    - title: Project information
+      required:
+        - org_name
+        - product_name
+        - component_id
+        - description
+      properties:
+        org_name:
+          title: Organization
+          type: string
+          description: Deluxe Organization (ex. Payments, Data, etc.)
+        product_name:
+          title: Product
+          type: string
+          description: Product name (associated in Harness as project)
+        component_id:
+          title: Name
+          type: string
+          description: Unique name of the react app - which will be used as the solution
+            file name
+        description:
+          title: Description
+          type: string
+          description: Help others understand what this react app is for.
+    - title: Repository details
       required:
         - project_name
-        - template_type
-        - public_template_url
-        - repository_type
-        - repositoty_description
-        - repository_default_branch
-        - direct_push_branch
-        - slack_id
+        - repo_name
+        - solution_name
       properties:
         project_name:
-          title: Project Name
+          title: Repository project name
           type: string
-          description: Mention the project name
-        token:
-          title: Harness Token
+          description: Name of the repository project
+        repo_name:
+          title: Repository location
           type: string
-          ui:widget: password
-          ui:field: HarnessAuthToken
-        projectId:
-            title: Project Identifier
-            description: Harness Project Identifier
-            type: string
-            ui:field: HarnessProjectPicker
-            ui:autofocus: true
-        orgId:
-            title: Org Identifier
-            description: Harness org Identifier
-            type: string
-            ui:field: HarnessAutoOrgPicker
-            ui:autofocus: true
-        template_type:
-          title: Type of the Template
+          description: Name of the repository
+        solution_name:
+          title: Application name
           type: string
-          description: Type of the Template
-        public_template_url:
-          title: Give a Public template URL
-          type: string
-          description: Give a Public Cookiecutter Template  
-        repository_type:
-          type: string
-          title: Repository Type
-          enum:
-            - public
-            - private
-          default: Public
-        repositoty_description:
-          type: string
-          title: Add a description to your repo
-          description: Auto-generated using Self-Service-Flow of Harness-IDP 
-        repository_default_branch:
-          title: Name of your Default Branch
-          type: string
-          description: name your branch 
-        direct_push_branch:
-          title: Name of your develop branch
-          type: string
-          description: Name the Branch to which changes will be updated
-        slack_id:
-          title: Name of your slack ID
-          type: string
-          description: Give the slack ID to which notifications would be sent      
-        owner:
-          title: Choose an Owner for the Service
-          type: string
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
+          description: React application name
   steps:
-    - id: trigger
-      name: Creating your react app
-      action: trigger:harness-custom-pipeline
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
       input:
-        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/ci/orgs/default/projects/projctidp/pipelines/SelfServiceflowreposetup/pipeline-studio/?storeType=INLINE"
-        inputset:
+        url: ./skeleton
+        copyWithoutTemplating:
+          - .github/workflows/*
+        values:
+          org_name: ${{ parameters.org_name }}
+          product_name: ${{ parameters.product_name }}
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          artifact_id: ${{ parameters.component_id }}
           project_name: ${{ parameters.project_name }}
-          template_type: ${{ parameters.template_type }}
-          public_template_url: ${{ parameters.public_template_url }}
-          repository_type: ${{ parameters.repository_type }}
-          repositoty_description: ${{ parameters.repository_description }}
-          repository_default_branch: ${{ parameters.repository_default_branch }}
-          direct_push_branch: ${{ parameters.direct_push_branch }}
-          slack_id: ${{ parameters.slack_id }}
-        apikey: ${{ parameters.token }}
-    # The final step is to register our new component in the catalog.
-
-
+          repo_name: ${{ parameters.repo_name }}
+          solution_name: ${{ parameters.solution_name }}
+          owner: ${{ parameters.owner }}
+          http_port: 8080
+    - id: publish
+      name: Publish
+      action: publish:bitbucketCloud
+      input:
+        repoUrl: bitbucket.org?workspace=deluxe-development&project=${{
+          parameters.project_name }}&repo=${{ parameters.repo_name }}
+        repoVisibility: private
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
   output:
     links:
-      - title: Pipeline Details
-        url: ${{ steps.trigger.output.PipelineUrl }}
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+status:
+  items:
+    - type: backstage.io/catalog-processing
+      level: error
+      message: "InputError: No processor recognized the entity
+        template:default/react-host-template as valid, possibly caused by a
+        foreign kind or apiVersion"
+      error:
+        name: InputError
+        message: No processor recognized the entity template:default/react-host-template
+          as valid, possibly caused by a foreign kind or apiVersion
