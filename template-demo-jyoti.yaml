@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: react-app
-  title: Create a new service
+  name: re-deluxe
+  title: Create a new 
   description: A template to create a new service
   tags:
     - nextjs
