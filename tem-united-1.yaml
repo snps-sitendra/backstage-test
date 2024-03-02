@@ -1,0 +1,95 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: re-deluxe
+  title: Final TRY
+  description: A template to create a new service
+  tags:
+    - nextjs
+    - react
+    - javascript
+spec:
+  owner: user:drod-deluxe
+  type: website
+  parameters:
+    - title: Project information
+      required:
+        - org_name
+        - product_name
+        - component_id
+        - description
+      properties:
+        org_name:
+          title: Organization
+          type: string
+          description: Deluxe Organization (ex. Payments, Data, etc.)
+        product_name:
+          title: Product
+          type: string
+          description: Product name (associated in Harness as project)
+        component_id:
+          title: Name
+          type: string
+          description: Unique name of the react app - which will be used as the solution
+            file name
+        description:
+          title: Description
+          type: string
+          description: Help others understand what this react app is for.
+    - title: Repository details
+      required:
+        - project_name
+        - repo_name
+        - solution_name
+      properties:
+        project_name:
+          title: Repository project name
+          type: string
+          description: Name of the repository project
+        repo_name:
+          title: Repository location
+          type: string
+          description: Name of the repository
+        solution_name:
+          title: Application name
+          type: string
+          description: React application name
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        copyWithoutTemplating:
+          - .github/workflows/*
+        values:
+          org_name: ${{ parameters.org_name }}
+          product_name: ${{ parameters.product_name }}
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          artifact_id: ${{ parameters.component_id }}
+          project_name: ${{ parameters.project_name }}
+          repo_name: ${{ parameters.repo_name }}
+          solution_name: ${{ parameters.solution_name }}
+          owner: ${{ parameters.owner }}
+          http_port: 8080
+    - id: publish
+      name: Publish
+      action: publish:bitbucketCloud
+      input:
+        repoUrl: bitbucket.org?workspace=deluxe-development&project=${{
+          parameters.project_name }}&repo=${{ parameters.repo_name }}
+        repoVisibility: private
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
