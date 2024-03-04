@@ -1,0 +1,36 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: test-new-template
+  title: Testing123 New Template
+  description: Hello World
+spec:
+  owner: user:default/debabrata.panigrahi
+  type: service
+  parameters:
+    - title: Pipeline Details
+      properties:
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+        slack_id:
+          title: Name of your slack ID
+          type: string
+          description: Give the slack ID to which notifications would be sent 
+  steps:
+    - id: trigger
+      name: Running your Pipeline
+      action: trigger:harness-custom-pipeline
+      input:
+        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/idp-admin/orgs/default/projects/projctidp/pipelines/demo/pipeline-studio/?storeType=INLINE"
+        inputset:
+          slack_id: ${{ parameters.slack_id }}
+        apikey: ${{ parameters.token }}
+    # The final step is to register our new component in the catalog.
+
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
