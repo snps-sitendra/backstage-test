@@ -18,20 +18,12 @@ spec:
           type: string
           ui:widget: password
           ui:field: HarnessAuthToken
-        owner:
-          title: Choose an Owner for the Service
-          type: string
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
   steps:
     - id: trigger
       name: Running your Pipeline
       action: trigger:harness-custom-pipeline
       input:
         url: "https://stress.harness.io/ng/account/px7xd_BFRCi-pfWPYXVjvw/module/idp-admin/orgs/aaaorg/projects/testprojectidp/pipelines/idppipeline/pipeline-studio?storeType=INLINE"
-        inputset:
         apikey: ${{ parameters.token }}
     # The final step is to register our new component in the catalog.
 
