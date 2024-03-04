@@ -1,0 +1,51 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: dummy-test
+  title: Create new pipeline
+  description: Hello World
+    - nextjs
+    - react
+    - javascript
+spec:
+  owner: user:default/debabrata.panigrahi
+  type: service
+  parameters:
+    - title: Service Details
+      required:
+        - project_name
+        - template_type
+        - public_template_url
+        - repository_type
+        - repositoty_description
+        - repository_default_branch
+        - direct_push_branch
+        - slack_id
+      properties:
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+        owner:
+          title: Choose an Owner for the Service
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+  steps:
+    - id: trigger
+      name: Running your Pipeline
+      action: trigger:harness-custom-pipeline
+      input:
+        url: "https://stress.harness.io/ng/account/px7xd_BFRCi-pfWPYXVjvw/module/idp-admin/orgs/aaaorg/projects/testprojectidp/pipelines/idppipeline/pipeline-studio?storeType=INLINE"
+        inputset:
+        apikey: ${{ parameters.token }}
+    # The final step is to register our new component in the catalog.
+
+
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
