@@ -11,16 +11,7 @@ spec:
   owner: user:default/debabrata.panigrahi
   type: service
   parameters:
-    - title: Service Details
-      required:
-        - project_name
-        - template_type
-        - public_template_url
-        - repository_type
-        - repositoty_description
-        - repository_default_branch
-        - direct_push_branch
-        - slack_id
+    - title: Pipeline Details
       properties:
         token:
           title: Harness Token
