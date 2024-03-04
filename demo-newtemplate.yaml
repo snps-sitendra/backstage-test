@@ -18,6 +18,10 @@ spec:
           type: string
           ui:widget: password
           ui:field: HarnessAuthToken
+        slack_id:
+          title: Name of your slack ID
+          type: string
+          description: Give the slack ID to which notifications would be sent 
   steps:
     - id: trigger
       name: Running your Pipeline
