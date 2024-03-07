@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "hello-world-app-plugins"
+  additionalInfo:
+    value1: Aashrit
+    value2: Garg
+    value3: google
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  owner: "IDPAdmin"
+  lifecycle: experimental
