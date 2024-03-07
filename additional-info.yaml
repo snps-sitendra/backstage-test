@@ -3,9 +3,9 @@ kind: Component
 metadata:
   name: "hello-world-app-plugins"
   additionalInfo:
-    value1: Deba
-    value2: DevRel
-    value3: Profile
+    Name: Deba
+    Position: DevRel
+    Details: Profile
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
