@@ -3,9 +3,9 @@ kind: Component
 metadata:
   name: "hello-world-app-plugins"
   additionalInfo:
-    value1: Aashrit
-    value2: Garg
-    value3: google
+    value1: Deba
+    value2: DevRel
+    value3: Profile
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
