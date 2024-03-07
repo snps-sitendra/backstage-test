@@ -3,9 +3,9 @@ kind: Component
 metadata:
   name: "deba-test"
   additionalInfo:
-    Name: Deba
-    Position: DevRel
-    Details: Profile
+    value1: Name
+    value2: Position
+    value3: google
   annotations:
     backstage.io/techdocs-ref: dir:.
 spec:
