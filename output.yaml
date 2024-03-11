@@ -1,0 +1,71 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: demooutputvariable
+  title: Demo output variable
+  description: An template for the scaffolder that creates a Django service
+  tags:
+    - django
+    - harness
+spec:
+  owner: debabrata.panigrahi@harness.io
+  type: service
+  parameters:
+    - title: Django Service Details
+      required:
+        - name
+      properties:
+        name:
+          title: Name of your Django Service
+          type: string
+          description: Unique name of the service
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+    - title: Service Infrastructure Details
+      required:
+        - provider
+      properties:
+        provider:
+          title: Choose a cloud provider for Deployment
+          type: string
+          enum: ['GCP', 'AWS']
+          default: GCP
+        owner:
+          title: Choose an Owner for the Service
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        projectId:
+          title: Project Identifier
+          type: string
+          ui:field: HarnessProjectPicker
+        orgId:
+          title: Org Identifier
+          type: string
+          ui:field: HarnessAutoOrgPicker
+  steps:
+    - id: trigger
+      name: Creating Your Django Service
+      action: trigger:harness-custom-pipeline
+      input:
+        url: 'https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/home/orgs/default/projects/projctidp/pipelines/citestpipeline/pipeline-studio?storeType=INLINE'
+        inputset:
+          provider: ${{ parameters.provider }}
+        apikey: ${{ parameters.token }}
+        showOutputVariables: true
+  output:
+    text:
+      - title: Output Variable
+        content: |
+          Output Variable Values: \n
+              **test2** is `${{ steps.trigger.output.test2 }}` \n
+              **test1** is `${{ steps.trigger.output.test1 }}` \n
+              **test1** with fqnPath is `${{ steps.trigger.output['pipeline.stages.testci.spec.execution.steps.Run_1.output.outputVariables.test1'] }}`
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
