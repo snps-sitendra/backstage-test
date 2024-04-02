@@ -31,7 +31,7 @@ spec:
           type: string
           description: System of the component
           ui:field: EntityFieldPicker
-          ui:displayField: metadata.title
+          ui:displayField: spec.owner
           ui:options:
             catalogFilter:
               kind: 
