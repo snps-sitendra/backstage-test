@@ -1,0 +1,46 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: test-CA-1
+  title: Test New Custom Actions
+  description: A template to create a new service
+  tags:
+    - nextjs
+    - react
+    - javascript
+spec:
+  owner: debabrata.panigrahi@harness.io
+  type: service
+  parameters:
+    - title: Service Details
+      required:
+        - inputSetName
+        - triggerName
+      properties:
+        inputSetName:
+          title: Name your Input Set
+          type: string
+          description: Unique Name for Inputset
+        triggerName:
+          title: Name for Trigger
+          type: string
+          description: Name for Trigger
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Creating your react app
+      action: trigger:create-and-trigger-pipeline-with-inputset
+      input:
+        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/cd/orgs/default/projects/projctidp/pipelines/SelfServiceflowreposetup_private_cookiecutter/pipeline-studio?storeType=INLINE"
+        inputSetName: ${{ parameters.inputSetName }}
+        triggerName: ${{ parameters.triggerName }}
+        apikey: ${{ parameters.token }}
+    # The final step is to register our new component in the catalog.
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
