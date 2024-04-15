@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: test-CA-1
+  name: test-custom-action
   title: Test New Custom Actions
   description: A template to create a new service
   tags:
