@@ -35,7 +35,7 @@ spec:
       name: Creating your react app
       action: trigger:trigger-pipeline-with-webhook
       input:
-        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/cd/orgs/default/projects/projctidp/pipelines/SelfServiceflowreposetup_private_cookiecutter/pipeline-studio?storeType=INLINE"
+        url: "https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/module/cd/orgs/default/projects/projctidp/pipelines/SelfServiceflowreposetup_CI/pipeline-studio?storeType=INLINE"
         inputSetName: ${{ parameters.inputSetName }}
         triggerName: ${{ parameters.triggerName }}
         apikey: ${{ parameters.token }}
