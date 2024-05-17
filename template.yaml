@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: react-app
-  title: (Demo) Create a react app
+  title: Test App
   description: A template to create a new react app
   tags:
     - nextjs
