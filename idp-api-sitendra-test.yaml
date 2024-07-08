@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: register-a-new-service
+  description: Description for registering a new service
+  annotations:
+     harness.io/project-url: https://app.harness.io/ng/#/account/vpCkHKsDSxK9_KYfjCTMKA/cd/orgs/default/projects/PREQA_NG_Pipelines
+     github.com/project-slug: harness/harness-core-ui
+     grafana/dashboard-selector: "folderUrl == 'https://grafana.harness.io/dashboards/f/X3UO7QLVk/sto' || folderUrl == 'https://grafana.harness.io/dashboards/f/3oaJ5P94z/cie'"
+     grafana/alert-label-selector: "destination=sto-prod-slack"
+     grafana/overview-dashboard: "https://grafana.harness.io/d/-zsEc0J4k/sto-core-and-ticket-service?orgId=1"
+     jira/project-key: IDP
+     pagerduty.com/service-id: PFVOX97
+  tags:
+    - ansible
+  links:
+    - url: https://admin.example-org.com
+      title: Admin Dashboard
+      type: admin-dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: sitendra
+  system: project-x
