@@ -12,5 +12,5 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: team-a
+  owner: sitendra
   system: project-x
